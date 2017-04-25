@@ -14,7 +14,7 @@ namespace MultiThreadQueue.Collections
             lock (_internalQueue)
             {
                 _internalQueue.Enqueue(item);
-                Monitor.Pulse(_internalQueue);
+                Monitor.PulseAll(_internalQueue);
             }
 
         }
@@ -27,9 +27,7 @@ namespace MultiThreadQueue.Collections
                 {
                     Monitor.Wait(_internalQueue);
                 }
-                T result = _internalQueue.Dequeue();
-                Monitor.Pulse(_internalQueue);
-                return result;
+                return _internalQueue.Dequeue();
             }
         }
 
